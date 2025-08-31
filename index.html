@@ -22,6 +22,15 @@
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
         }
+        /* ボタンの無効化スタイル */
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        button:disabled:hover {
+            background-color: #4f46e5; /* indigo-600 */
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center min-h-screen p-4 font-sans">
@@ -53,7 +62,10 @@
     </div>
 
     <!-- 操作ボタン -->
-    <div class="mt-8">
+    <div class="mt-8 flex items-center space-x-4">
+        <button id="prev-btn" class="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transition-all duration-300 ease-in-out transform hover:scale-105">
+            前の単語
+        </button>
         <button id="next-btn" class="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transition-all duration-300 ease-in-out transform hover:scale-105">
             次の単語
         </button>
@@ -129,21 +141,26 @@
             { english: "on the basis of", japanese: "～に基づいて" },
         ];
 
-        // --- アプリケーションロジック ---
+        // --- DOM要素 ---
         const cardContainer = document.getElementById('card-container');
         const cardInner = document.getElementById('card-inner');
         const frontTextEl = document.getElementById('front-text');
         const backTextEl = document.getElementById('back-text');
         const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
         const toggleModeBtn = document.getElementById('toggle-mode-btn');
 
-        let currentWord = null;
+        // --- アプリケーションの状態 ---
         let isFlipped = false;
-        let usedIndices = new Set();
         let isEngToJpMode = true; // true: 英語→日本語, false: 日本語→英語
+        let usedIndices = new Set();
+        let history = []; // 表示した単語のインデックス履歴
+        let currentIndex = -1; // history内の現在位置
 
-        // ランダムに単語を取得
-        function getRandomWord() {
+        // --- 関数 ---
+
+        // ランダムな単語のインデックスを取得（まだ使われていないもの）
+        function getRandomWordIndex() {
             if (usedIndices.size === words.length) {
                 usedIndices.clear(); // 全ての単語を表示したらリセット
             }
@@ -153,25 +170,50 @@
             } while (usedIndices.has(randomIndex));
             
             usedIndices.add(randomIndex);
-            return words[randomIndex];
+            return randomIndex;
         }
 
-        // カードの表示を更新
-        function updateCard() {
-            currentWord = getRandomWord();
-            
+        // 指定されたインデックスの単語をカードに表示
+        function showWord(wordIndex) {
+            const word = words[wordIndex];
             if (isEngToJpMode) {
-                frontTextEl.textContent = currentWord.english;
-                backTextEl.textContent = currentWord.japanese;
+                frontTextEl.textContent = word.english;
+                backTextEl.textContent = word.japanese;
             } else {
-                frontTextEl.textContent = currentWord.japanese;
-                backTextEl.textContent = currentWord.english;
+                frontTextEl.textContent = word.japanese;
+                backTextEl.textContent = word.english;
             }
             
             // カードを表に戻す
             if (isFlipped) {
                 cardInner.classList.remove('rotate-y-180');
                 isFlipped = false;
+            }
+        }
+        
+        // ボタンの状態を更新
+        function updateButtonState() {
+            prevBtn.disabled = (currentIndex <= 0);
+        }
+
+        // 次の単語を表示
+        function showNextWord() {
+            currentIndex++;
+            if (currentIndex >= history.length) {
+                // 履歴の末尾にいる場合は新しい単語を取得
+                const newWordIndex = getRandomWordIndex();
+                history.push(newWordIndex);
+            }
+            showWord(history[currentIndex]);
+            updateButtonState();
+        }
+
+        // 前の単語を表示
+        function showPrevWord() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showWord(history[currentIndex]);
+                updateButtonState();
             }
         }
 
@@ -181,21 +223,58 @@
             cardInner.classList.toggle('rotate-y-180');
         }
 
-        // 出題モードを切り替える
-        function toggleMode() {
-            isEngToJpMode = !isEngToJpMode;
+        // 出題モードを設定
+        function setMode(engToJp) {
+            if (isEngToJpMode === engToJp) return; // モードが同じなら何もしない
+            
+            isEngToJpMode = engToJp;
             toggleModeBtn.textContent = isEngToJpMode ? '日本語 → 英語' : '英語 → 日本語';
-            updateCard();
+            
+            // モードを切り替えたら履歴をリセット
+            usedIndices.clear();
+            history = [];
+            currentIndex = -1;
+            showNextWord();
         }
-
+        
         // --- イベントリスナー ---
+        
+        // ボタンクリック
         cardContainer.addEventListener('click', flipCard);
-        nextBtn.addEventListener('click', updateCard);
-        toggleModeBtn.addEventListener('click', toggleMode);
+        nextBtn.addEventListener('click', showNextWord);
+        prevBtn.addEventListener('click', showPrevWord);
+        toggleModeBtn.addEventListener('click', () => setMode(!isEngToJpMode));
+        
+        // キーボードショートカット
+        document.addEventListener('keydown', (e) => {
+            // テキスト入力中などはショートカットを無効にする
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
 
+            switch(e.key) {
+                case ' ':
+                    e.preventDefault(); // ページスクロール防止
+                    flipCard();
+                    break;
+                case 'ArrowRight':
+                case 'Enter':
+                    showNextWord();
+                    break;
+                case 'ArrowLeft':
+                    showPrevWord();
+                    break;
+                case 'e':
+                    setMode(false); // 日本語→英語モード
+                    break;
+                case 'j':
+                    setMode(true); // 英語→日本語モード
+                    break;
+            }
+        });
 
-        // 初期表示
-        updateCard();
+        // --- 初期化 ---
+        showNextWord();
 
         // --- PWA サービスワーカー登録 ---
         if ('serviceWorker' in navigator) {
