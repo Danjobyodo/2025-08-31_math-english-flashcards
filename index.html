@@ -1,206 +1,190 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学専門英語フラッシュカード</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4a5568"/>
+    <style>
+        /* 3Dカードのための基本スタイル */
+        .perspective {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+    </style>
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ja"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;数学専門英語フラッシュカード&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="manifest" href="manifest.json"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="theme-color" content="#4a5568"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 3Dカードのための基本スタイル */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.perspective {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>perspective: 1000px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.transform-style-3d {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform-style: preserve-3d;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.rotate-y-180 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: rotateY(180deg);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.backface-hidden {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backface-visibility: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-backface-visibility: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center min-h-screen p-4 font-sans"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="w-full max-w-2xl text-center mb-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 class="text-4xl font-bold text-gray-800 dark:text-white"&gt;数学専門英語フラッシュカード&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-lg text-gray-600 dark:text-gray-400 mt-2"&gt;大学院入試対策&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- カードコンポーネント --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="card-container" class="w-full max-w-lg h-64 perspective cursor-pointer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="card-inner" class="relative w-full h-full transform-style-3d transition-transform duration-700 ease-in-out"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- カードの表（英語） --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="card-front" class="absolute w-full h-full backface-hidden bg-white dark:bg-gray-800 rounded-2xl shadow-xl flex items-center justify-center p-6 border-2 border-indigo-200 dark:border-indigo-800"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="english-word" class="text-3xl md:text-4xl font-semibold text-center text-indigo-700 dark:text-indigo-300"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- カードの裏（日本語） --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="card-back" class="absolute w-full h-full backface-hidden bg-indigo-100 dark:bg-gray-700 rounded-2xl shadow-xl flex items-center justify-center p-6 border-2 border-indigo-200 dark:border-indigo-800 rotate-y-180"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p id="japanese-word" class="text-2xl md:text-3xl font-medium text-center text-gray-900 dark:text-gray-100"&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 操作ボタン --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mt-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="next-btn" class="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transition-all duration-300 ease-in-out transform hover:scale-105"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>次の単語</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- 単語データ ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const words = [</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "convergent", japanese: "収束する" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "divergent", japanese: "発散する" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "linear combination", japanese: "線形結合 / 一次結合" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "basis", japanese: "基底" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "axiom", japanese: "公理" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "postulate", japanese: "公準" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "proof", japanese: "証明" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "theorem", japanese: "定理" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "lemma", japanese: "補題" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "corollary", japanese: "系" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "radius of convergence", japanese: "収束半径" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "uniformly convergent", japanese: "一様収束する" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "pointwise convergent", japanese: "各点収束する" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "inner product", japanese: "内積" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "orthogonal", japanese: "直交の" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "orthonormal", japanese: "正規直交の" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "differentiable", japanese: "微分可能" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "monotonically increasing", japanese: "単調増加" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "necessary and sufficient condition", japanese: "必要十分条件" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "linear fractional transformation", japanese: "一次分数変換" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "set", japanese: "集合" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "element", japanese: "元" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "contradiction", japanese: "矛盾" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "open subset", japanese: "開部分集合" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "continuous function", japanese: "連続関数" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "differential equation", japanese: "微分方程式" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "initial value problem", japanese: "初期値問題" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "Lipschitz condition", japanese: "リプシッツ条件" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "partial sum", japanese: "部分和" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "infinite series", japanese: "無限級数" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "matrix", japanese: "行列" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "vector space", japanese: "ベクトル空間 / 線形空間" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "commutative", japanese: "可換な" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "determinant", japanese: "行列式" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "nonsingular / regular", japanese: "正則な" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "inverse matrix", japanese: "逆行列" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "power series", japanese: "べき級数" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "converges absolutely", japanese: "絶対収束する" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "termwise differentiation", japanese: "項別微分" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "analytic function", japanese: "解析関数" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "Riemann sphere", japanese: "リーマン球" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "conjugate point", japanese: "共役点" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "function series", japanese: "関数級数" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "coefficient", japanese: "係数" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "normally convergent", japanese: "正規収束" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "group", japanese: "群" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "subgroup", japanese: "部分群" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "normal subgroup", japanese: "正規部分群" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "binary relation", japanese: "二項関係" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "equivalence relation", japanese: "同値関係" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "equivalence class", japanese: "同値類" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "quotient set", japanese: "商集合" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "Kronecker delta", japanese: "クロネッカーのデルタ" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "transpose", japanese: "転置" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "axiomatised", japanese: "公理化された" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "valid proof", japanese: "妥当な証明" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "formal consistency", japanese: "形式的無矛盾性" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "monotonically non-decreasing", japanese: "単調非減少" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "mean value theorem", japanese: "平均値の定理" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "finite-dimensional", japanese: "有限次元の" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "infinite-dimensional", japanese: "無限次元の" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "linearly independent", japanese: "線形独立 / 一次独立" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "adhere to", japanese: "～に固執する、従う" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "rigor", japanese: "厳密性" },</p>
-<p class="p1"><span class="Apple-converted-space">            </span>{ english: "on the basis of", japanese: "～に基づいて" },</p>
-<p class="p1"><span class="Apple-converted-space">        </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- アプリケーションロジック ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const cardContainer = document.getElementById('card-container');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const cardInner = document.getElementById('card-inner');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const englishWordEl = document.getElementById('english-word');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const japaneseWordEl = document.getElementById('japanese-word');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const nextBtn = document.getElementById('next-btn');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>let currentWord = null;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let isFlipped = false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let usedIndices = new Set();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// ランダムに単語を取得</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function getRandomWord() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (usedIndices.size === words.length) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>usedIndices.clear(); // 全ての単語を表示したらリセット</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let randomIndex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>do {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>randomIndex = Math.floor(Math.random() * words.length);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} while (usedIndices.has(randomIndex));</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>usedIndices.add(randomIndex);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return words[randomIndex];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// カードの表示を更新</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateCard() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>currentWord = getRandomWord();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>englishWordEl.textContent = currentWord.english;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>japaneseWordEl.textContent = currentWord.japanese;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>// カードを表に戻す</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (isFlipped) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>cardInner.classList.remove('rotate-y-180');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>isFlipped = false;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// カードを裏返す</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function flipCard() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>isFlipped = !isFlipped;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cardInner.classList.toggle('rotate-y-180');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- イベントリスナー ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>cardContainer.addEventListener('click', flipCard);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>nextBtn.addEventListener('click', updateCard);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// 初期表示</p>
-<p class="p1"><span class="Apple-converted-space">        </span>updateCard();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- PWA サービスワーカー登録 ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if ('serviceWorker' in navigator) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>window.addEventListener('load', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>navigator.serviceWorker.register('./service-worker.js')</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>.then(registration =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>console.log('ServiceWorker registration successful with scope: ', registration.scope);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>})</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>.catch(error =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>console.log('ServiceWorker registration failed: ', error);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center min-h-screen p-4 font-sans">
+
+    <div class="w-full max-w-2xl text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 dark:text-white">数学専門英語フラッシュカード</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">大学院入試対策</p>
+    </div>
+
+    <!-- カードコンポーネント -->
+    <div id="card-container" class="w-full max-w-lg h-64 perspective cursor-pointer">
+        <div id="card-inner" class="relative w-full h-full transform-style-3d transition-transform duration-700 ease-in-out">
+            <!-- カードの表（英語） -->
+            <div id="card-front" class="absolute w-full h-full backface-hidden bg-white dark:bg-gray-800 rounded-2xl shadow-xl flex items-center justify-center p-6 border-2 border-indigo-200 dark:border-indigo-800">
+                <p id="english-word" class="text-3xl md:text-4xl font-semibold text-center text-indigo-700 dark:text-indigo-300"></p>
+            </div>
+            <!-- カードの裏（日本語） -->
+            <div id="card-back" class="absolute w-full h-full backface-hidden bg-indigo-100 dark:bg-gray-700 rounded-2xl shadow-xl flex items-center justify-center p-6 border-2 border-indigo-200 dark:border-indigo-800 rotate-y-180">
+                <p id="japanese-word" class="text-2xl md:text-3xl font-medium text-center text-gray-900 dark:text-gray-100"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 操作ボタン -->
+    <div class="mt-8">
+        <button id="next-btn" class="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-800 transition-all duration-300 ease-in-out transform hover:scale-105">
+            次の単語
+        </button>
+    </div>
+
+    <script>
+        // --- 単語データ ---
+        const words = [
+            { english: "convergent", japanese: "収束する" },
+            { english: "divergent", japanese: "発散する" },
+            { english: "linear combination", japanese: "線形結合 / 一次結合" },
+            { english: "basis", japanese: "基底" },
+            { english: "axiom", japanese: "公理" },
+            { english: "postulate", japanese: "公準" },
+            { english: "proof", japanese: "証明" },
+            { english: "theorem", japanese: "定理" },
+            { english: "lemma", japanese: "補題" },
+            { english: "corollary", japanese: "系" },
+            { english: "radius of convergence", japanese: "収束半径" },
+            { english: "uniformly convergent", japanese: "一様収束する" },
+            { english: "pointwise convergent", japanese: "各点収束する" },
+            { english: "inner product", japanese: "内積" },
+            { english: "orthogonal", japanese: "直交の" },
+            { english: "orthonormal", japanese: "正規直交の" },
+            { english: "differentiable", japanese: "微分可能" },
+            { english: "monotonically increasing", japanese: "単調増加" },
+            { english: "necessary and sufficient condition", japanese: "必要十分条件" },
+            { english: "linear fractional transformation", japanese: "一次分数変換" },
+            { english: "set", japanese: "集合" },
+            { english: "element", japanese: "元" },
+            { english: "contradiction", japanese: "矛盾" },
+            { english: "open subset", japanese: "開部分集合" },
+            { english: "continuous function", japanese: "連続関数" },
+            { english: "differential equation", japanese: "微分方程式" },
+            { english: "initial value problem", japanese: "初期値問題" },
+            { english: "Lipschitz condition", japanese: "リプシッツ条件" },
+            { english: "partial sum", japanese: "部分和" },
+            { english: "infinite series", japanese: "無限級数" },
+            { english: "matrix", japanese: "行列" },
+            { english: "vector space", japanese: "ベクトル空間 / 線形空間" },
+            { english: "commutative", japanese: "可換な" },
+            { english: "determinant", japanese: "行列式" },
+            { english: "nonsingular / regular", japanese: "正則な" },
+            { english: "inverse matrix", japanese: "逆行列" },
+            { english: "power series", japanese: "べき級数" },
+            { english: "converges absolutely", japanese: "絶対収束する" },
+            { english: "termwise differentiation", japanese: "項別微分" },
+            { english: "analytic function", japanese: "解析関数" },
+            { english: "Riemann sphere", japanese: "リーマン球" },
+            { english: "conjugate point", japanese: "共役点" },
+            { english: "function series", japanese: "関数級数" },
+            { english: "coefficient", japanese: "係数" },
+            { english: "normally convergent", japanese: "正規収束" },
+            { english: "group", japanese: "群" },
+            { english: "subgroup", japanese: "部分群" },
+            { english: "normal subgroup", japanese: "正規部分群" },
+            { english: "binary relation", japanese: "二項関係" },
+            { english: "equivalence relation", japanese: "同値関係" },
+            { english: "equivalence class", japanese: "同値類" },
+            { english: "quotient set", japanese: "商集合" },
+            { english: "Kronecker delta", japanese: "クロネッカーのデルタ" },
+            { english: "transpose", japanese: "転置" },
+            { english: "axiomatised", japanese: "公理化された" },
+            { english: "valid proof", japanese: "妥当な証明" },
+            { english: "formal consistency", japanese: "形式的無矛盾性" },
+            { english: "monotonically non-decreasing", japanese: "単調非減少" },
+            { english: "mean value theorem", japanese: "平均値の定理" },
+            { english: "finite-dimensional", japanese: "有限次元の" },
+            { english: "infinite-dimensional", japanese: "無限次元の" },
+            { english: "linearly independent", japanese: "線形独立 / 一次独立" },
+            { english: "adhere to", japanese: "～に固執する、従う" },
+            { english: "rigor", japanese: "厳密性" },
+            { english: "on the basis of", japanese: "～に基づいて" },
+        ];
+
+        // --- アプリケーションロジック ---
+        const cardContainer = document.getElementById('card-container');
+        const cardInner = document.getElementById('card-inner');
+        const englishWordEl = document.getElementById('english-word');
+        const japaneseWordEl = document.getElementById('japanese-word');
+        const nextBtn = document.getElementById('next-btn');
+
+        let currentWord = null;
+        let isFlipped = false;
+        let usedIndices = new Set();
+
+        // ランダムに単語を取得
+        function getRandomWord() {
+            if (usedIndices.size === words.length) {
+                usedIndices.clear(); // 全ての単語を表示したらリセット
+            }
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * words.length);
+            } while (usedIndices.has(randomIndex));
+            
+            usedIndices.add(randomIndex);
+            return words[randomIndex];
+        }
+
+        // カードの表示を更新
+        function updateCard() {
+            currentWord = getRandomWord();
+            englishWordEl.textContent = currentWord.english;
+            japaneseWordEl.textContent = currentWord.japanese;
+            
+            // カードを表に戻す
+            if (isFlipped) {
+                cardInner.classList.remove('rotate-y-180');
+                isFlipped = false;
+            }
+        }
+
+        // カードを裏返す
+        function flipCard() {
+            isFlipped = !isFlipped;
+            cardInner.classList.toggle('rotate-y-180');
+        }
+
+        // --- イベントリスナー ---
+        cardContainer.addEventListener('click', flipCard);
+        nextBtn.addEventListener('click', updateCard);
+
+        // 初期表示
+        updateCard();
+
+        // --- PWA サービスワーカー登録 ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
