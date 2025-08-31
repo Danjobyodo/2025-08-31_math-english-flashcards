@@ -26,21 +26,28 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col items-center justify-center min-h-screen p-4 font-sans">
 
-    <div class="w-full max-w-2xl text-center mb-8">
+    <div class="w-full max-w-2xl text-center mb-6">
         <h1 class="text-4xl font-bold text-gray-800 dark:text-white">数学専門英語フラッシュカード</h1>
         <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">大学院入試対策</p>
+    </div>
+
+    <!-- モード切替ボタン -->
+    <div class="mb-6">
+        <button id="toggle-mode-btn" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold rounded-full shadow-md hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all duration-300">
+            日本語 → 英語
+        </button>
     </div>
 
     <!-- カードコンポーネント -->
     <div id="card-container" class="w-full max-w-lg h-64 perspective cursor-pointer">
         <div id="card-inner" class="relative w-full h-full transform-style-3d transition-transform duration-700 ease-in-out">
-            <!-- カードの表（英語） -->
+            <!-- カードの表 -->
             <div id="card-front" class="absolute w-full h-full backface-hidden bg-white dark:bg-gray-800 rounded-2xl shadow-xl flex items-center justify-center p-6 border-2 border-indigo-200 dark:border-indigo-800">
-                <p id="english-word" class="text-3xl md:text-4xl font-semibold text-center text-indigo-700 dark:text-indigo-300"></p>
+                <p id="front-text" class="text-3xl md:text-4xl font-semibold text-center text-indigo-700 dark:text-indigo-300"></p>
             </div>
-            <!-- カードの裏（日本語） -->
+            <!-- カードの裏 -->
             <div id="card-back" class="absolute w-full h-full backface-hidden bg-indigo-100 dark:bg-gray-700 rounded-2xl shadow-xl flex items-center justify-center p-6 border-2 border-indigo-200 dark:border-indigo-800 rotate-y-180">
-                <p id="japanese-word" class="text-2xl md:text-3xl font-medium text-center text-gray-900 dark:text-gray-100"></p>
+                <p id="back-text" class="text-2xl md:text-3xl font-medium text-center text-gray-900 dark:text-gray-100"></p>
             </div>
         </div>
     </div>
@@ -125,13 +132,15 @@
         // --- アプリケーションロジック ---
         const cardContainer = document.getElementById('card-container');
         const cardInner = document.getElementById('card-inner');
-        const englishWordEl = document.getElementById('english-word');
-        const japaneseWordEl = document.getElementById('japanese-word');
+        const frontTextEl = document.getElementById('front-text');
+        const backTextEl = document.getElementById('back-text');
         const nextBtn = document.getElementById('next-btn');
+        const toggleModeBtn = document.getElementById('toggle-mode-btn');
 
         let currentWord = null;
         let isFlipped = false;
         let usedIndices = new Set();
+        let isEngToJpMode = true; // true: 英語→日本語, false: 日本語→英語
 
         // ランダムに単語を取得
         function getRandomWord() {
@@ -150,8 +159,14 @@
         // カードの表示を更新
         function updateCard() {
             currentWord = getRandomWord();
-            englishWordEl.textContent = currentWord.english;
-            japaneseWordEl.textContent = currentWord.japanese;
+            
+            if (isEngToJpMode) {
+                frontTextEl.textContent = currentWord.english;
+                backTextEl.textContent = currentWord.japanese;
+            } else {
+                frontTextEl.textContent = currentWord.japanese;
+                backTextEl.textContent = currentWord.english;
+            }
             
             // カードを表に戻す
             if (isFlipped) {
@@ -166,9 +181,18 @@
             cardInner.classList.toggle('rotate-y-180');
         }
 
+        // 出題モードを切り替える
+        function toggleMode() {
+            isEngToJpMode = !isEngToJpMode;
+            toggleModeBtn.textContent = isEngToJpMode ? '日本語 → 英語' : '英語 → 日本語';
+            updateCard();
+        }
+
         // --- イベントリスナー ---
         cardContainer.addEventListener('click', flipCard);
         nextBtn.addEventListener('click', updateCard);
+        toggleModeBtn.addEventListener('click', toggleMode);
+
 
         // 初期表示
         updateCard();
@@ -188,3 +212,4 @@
     </script>
 </body>
 </html>
+
