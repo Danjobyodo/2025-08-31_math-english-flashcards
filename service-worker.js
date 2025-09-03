@@ -1,4 +1,5 @@
-const CACHE_NAME = 'math-english-flashcards-cache-v1';
+// キャッシュ名をユニークにし、バージョンを更新
+const CACHE_NAME = 'math-english-flashcards-cache-v2';
 const urlsToCache = [
   './',
   './index.html',
@@ -35,11 +36,12 @@ self.addEventListener('fetch', event => {
 
 // activateイベントで古いキャッシュを削除する
 self.addEventListener('activate', event => {
-    const cacheWhitelist = [CACHE_NAME];
+    const cacheWhitelist = [CACHE_NAME]; // このアプリの新しいキャッシュ名のみを許可
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cacheName => {
+                    // ホワイトリストに含まれていないキャッシュ（古いキャッシュ）を削除
                     if (cacheWhitelist.indexOf(cacheName) === -1) {
                         return caches.delete(cacheName);
                     }
